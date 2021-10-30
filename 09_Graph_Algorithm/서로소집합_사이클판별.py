@@ -10,16 +10,21 @@ def union_parent(parent, a, b):
     parent[b] = a
   else:
     parent[a] = b
+
     
 v, e = map(int, input().split())
 parent = [i for i in range(v + 1)]
 
+cycle = False
 for i in range(e):
   a, b = map(int, input().split())
-  union_parent(parent, a, b)
+  if find_parent(parent, a) == find_parent(parent, b):
+    cycle = True
+    break
+  else:
+    union_parent(parent, a, b)
 
-for i in range(1, v + 1):
-  print(find_parent(parent, i), end='')
-
-for i in range(1, v + 1):
-  print(parent[i], end = '')
+if cycle:
+  print('Cycle exist')
+else:
+  print('Cycle does not exist')
