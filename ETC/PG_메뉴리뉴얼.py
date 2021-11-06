@@ -1,3 +1,19 @@
+# 다시 푼 풀이
+from collections import Counter
+from itertools import combinations
+def solution(orders, course):
+    answer = []
+    for count in course:
+        candidate = []
+        for order in orders:
+            target = list(combinations(sorted(order), count))
+            target = list(map(lambda x: ''.join(x), target))
+            candidate += target
+        candidate_list = Counter(candidate).most_common()
+        answer += [menu for menu, ctx in candidate_list if ctx > 1 and ctx == candidate_list[0][1]]
+    return sorted(answer)
+
+# 답지 보고 푼 풀이
 from itertools import combinations
 from collections import Counter
 def solution(orders, course):
